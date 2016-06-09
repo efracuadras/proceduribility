@@ -31,16 +31,14 @@ If you want to use the facade to log messages, add this to your facades in app.p
 Example:
 
 ```php
-$procedure = Procedure::create()
-    ->name('sp_create_post')
+$procedure = Procedure::name('sp_create_post')
     ->paramsIn([
         'title' => 'Super title',
         'body'  => 'Dummy text'
-    ])
-    ->paramsOut(['message' => PDO::PARAM_STR, 'errors' => PDO::PARAM_INT])  // for output
-    ->run();
+    ])->paramsOut(['message' => PDO::PARAM_STR, 'errors' => PDO::PARAM_INT]) // output values
+    ->run(); // or execute()
 
-echo $procedure->output();      // ['message' => 'Post created', 'errors' => 0]
+echo $procedure->output(); // ['message' => 'Post created', 'errors' => 0]
 ```
 
 
