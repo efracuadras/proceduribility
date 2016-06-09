@@ -1,6 +1,4 @@
-<?php
-
-namespace Mathiasd88\Proceduribility;
+<?php namespace Mathiasd88\Proceduribility;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,13 +11,7 @@ class ProceduribilityServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*$this->publishes([
-            __DIR__.'/../../config/procedure.php' => config_path('procedure.php'),
-        ]);
-
-        $this->mergeConfigFrom(
-            __DIR__ . '/../../config/procedure.php', 'procedure'
-        );*/
+        //
     }
 
     /**
@@ -29,6 +21,8 @@ class ProceduribilityServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Mathiasd88\Proceduribility\StoredProcedure');
+        $this->app['storedprocedure'] = $this->app->share(function($app) {
+            return new StoredProcedure;
+        });
     }
 }

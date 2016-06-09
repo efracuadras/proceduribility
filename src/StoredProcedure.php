@@ -1,17 +1,10 @@
-<?php
-
-namespace Mathiasd88\Proceduribility;
+<?php namespace Mathiasd88\Proceduribility;
 
 use Illuminate\Support\Facades\DB;
 use PDO;
 
 class StoredProcedure
 {
-    static function test()
-    {
-        return 'hola';
-    }
-
     /**
      * Nombre del procedimiento
      * 
@@ -46,16 +39,6 @@ class StoredProcedure
      * @var array
      */
     protected $output = [];
-
-    /**
-     * Se inicia una nueva ejecución de un procedimiento almacenado
-     * 
-     * @return self
-     */
-    static function create()
-    {
-        return (new static);
-    }
 
     /**
      * Retorna si ocurrieron errores en la ejecución del procedimiento almacenado.
@@ -187,8 +170,6 @@ class StoredProcedure
         $params = $this->formatParams($params);
 
         $this->stmt = DB::getPdo()->prepare("BEGIN $this->procedure($params); END;");
-
-        //return $this;
     }
 
     /**
