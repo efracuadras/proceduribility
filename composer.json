@@ -1,0 +1,12 @@
+{
+    "name": "mathiasd88/proceduribility",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mathias Donoso",
+            "email": "mathiasd88@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
