@@ -1,5 +1,8 @@
 {
     "name": "mathiasd88/proceduribility",
+    "description": "Proceduribility is a way for a more elegant and fluent use of stored procedures for Oracle",
+    "homepage": "https://github.com/mathiasd88/proceduribility",
+    "keywords": ["laravel", "stored procedure", "procedure"],
     "license": "MIT",
     "authors": [
         {
@@ -8,5 +11,12 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mathiasd88\\Proceduribility\\": "src/"
+        }
+    }
 }
