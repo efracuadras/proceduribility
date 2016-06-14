@@ -23,7 +23,7 @@ Mathiasd88\Proceduribility\ProceduribilityServiceProvider::class,
 If you want to use the facade, add this to your facades in app.php:
 
 ```
-'Procedure' => Mathiasd88\Proceduribility\StoredProcedure::class,
+'Procedure' => Mathiasd88\Proceduribility\Facades\Procedure::class,
 ```
 
 ## Usage
