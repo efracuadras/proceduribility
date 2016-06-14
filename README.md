@@ -2,7 +2,7 @@
 
 Package for a fluent and elegant way to use stored procedures.
 
-**This project is still on development mode, don't use it on production environment**
+**This project is still on development mode, don't use it on production environment.**
 
 ## Installation
 

@@ -6,35 +6,35 @@ use PDO;
 class StoredProcedure
 {
     /**
-     * Nombre del procedimiento
+     * Nombre del procedimiento.
      * 
      * @var string
      */
     protected $procedureName;
 
     /**
-     * Parámetros de entrada para el procedimiento
+     * Parámetros de entrada para el procedimiento.
      * 
      * @var array
      */
     protected $paramsIn = [];
 
     /**
-     * Parámetros de salida del procedimiento
+     * Parámetros de salida del procedimiento.
      * 
      * @var array
      */
     protected $paramsOut = [];
 
     /**
-     * Instamcoa del procedimiento almacenado
+     * Sentencia del procedimiento almacenado.
      * 
      * @var Illuminate\Support\Facades\DB
      */
     protected $stmt;
 
     /**
-     * Salida del procedimiento
+     * Datos de salida del procedimiento.
      * 
      * @var array
      */
@@ -97,7 +97,7 @@ class StoredProcedure
     }
 
     /**
-     * Alias del método execute.
+     * Alias del método execute. Ejecuta el procedimiento almacenado.
      */
     public function run()
     {
@@ -105,7 +105,7 @@ class StoredProcedure
     }
 
     /**
-     * Ejecuta el procedimiento almacenado
+     * Ejecuta el procedimiento almacenado.
      */
     public function execute()
     {
