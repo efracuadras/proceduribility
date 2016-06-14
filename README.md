@@ -20,7 +20,7 @@ After updating composer, add the ServiceProvider to the providers array in confi
 Mathiasd88\Proceduribility\ProceduribilityServiceProvider::class,
 ```
 
-If you want to use the facade to log messages, add this to your facades in app.php:
+If you want to use the facade, add this to your facades in app.php:
 
 ```
 'Procedure' => Mathiasd88\Proceduribility\StoredProcedure::class,
@@ -38,7 +38,8 @@ $procedure = Procedure::name('sp_create_post')
     ])->paramsOut(['message' => PDO::PARAM_STR, 'errors' => PDO::PARAM_INT]) // output values
     ->run(); // or execute()
 
-echo $procedure->output(); // ['message' => 'Post created', 'errors' => 0]
+return $procedure->output(); // ['message' => 'Post created', 'errors' => 0]
+return $procedure->output('message'); // 'Post created'
 ```
 
 

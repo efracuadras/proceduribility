@@ -41,45 +41,13 @@ class StoredProcedure
     protected $output = [];
 
     /**
-     * Retorna si ocurrieron errores en la ejecución del procedimiento almacenado.
-     * 
-     * @return int
-     */
-    public function errores()
-    {
-        return $this->output['salida'];
-    }
-
-    /**
-     * Retorna el mensaje de la ejecución del procedimiento almacenado.
-     * 
-     * @return string
-     */
-    public function mensaje()
-    {
-        return $this->output['mensaje'];
-    }
-
-    /**
-     * Alias método salida.
-     * 
-     * @param  string $param
-     * 
-     * @return string
-     */
-    public function output($param = null)
-    {
-        return $this->salida($param);
-    }
-
-    /**
      * Retorna un parámetro de salida de la ejecución del procedimiento almacenado, en caso de no detallar el parámetro, retorna toda la salida.
      * 
      * @param  string $param
      * 
      * @return string
      */
-    public function salida($param = null)
+    public function output($param = null)
     {
         if (is_null($param)) {
             return $this->output;
@@ -119,18 +87,13 @@ class StoredProcedure
      */
     public function paramsOut($paramsOut = [])
     {
+        if (config('procedure.default_output')) {
+            $paramsOut = array_merge($paramsOut, config('procedure.default_output_parameters'));
+        }
+
         $this->paramsOut = $paramsOut;
 
         return $this;
-    }
-
-    /**
-     * Binding de los parámetros por defecto de salida que deberían tener todos los procedimientos almacenados.
-     */
-    private function defaultParamsOut()
-    {
-        $stmt->bindParam('p_n_salida', $salida, PDO::PARAM_INT);
-        $stmt->bindParam('p_v_mensaje', $mensaje, PDO::PARAM_STR, 3000);
     }
 
     /**
@@ -167,9 +130,9 @@ class StoredProcedure
     private function prepareSql()
     {
         $params = array_merge($this->paramsIn, $this->paramsOut);
-        $params = $this->formatParams($params);
+        $formatedParams = $this->formatParams($params);
 
-        $this->stmt = DB::getPdo()->prepare("BEGIN $this->procedure($params); END;");
+        $this->stmt = DB::getPdo()->prepare("BEGIN $this->procedure($formatedParams); END;");
     }
 
     /**
@@ -187,15 +150,29 @@ class StoredProcedure
      */
     private function bindParamsOut()
     {
-        $this->stmt->bindParam('p_n_salida', $salida, PDO::PARAM_INT);
-        $this->stmt->bindParam('p_v_mensaje', $mensaje, PDO::PARAM_STR, 3000);
+        foreach ($this->paramsOut as $param => $value) {
+
+            switch ($value) {
+                case PDO::PARAM_STR:
+                    $this->stmt->bindParam($param, ${$param}, PDO::PARAM_STR, config('procedure.params.str_length'));
+                    break;
+                case PDO::PARAM_INPUT_OUTPUT:
+                    $this->stmt->bindParam($param, ${$param}, PDO::PARAM_INPUT_OUTPUT, config('procedure.params.str_length'));
+                    break;
+                default:
+                    $this->stmt->bindParam($param, ${$param}, $value);
+                    break;
+            }
+        }
+
         $this->stmt->execute();
 
-        $this->output = [
-            'salida' => $salida,
-            'mensaje' => $mensaje
-        ];
+        // Prepare output
+        foreach ($this->paramsOut as $param => $value) {
+            $this->output[$param] = ${$param};
+        }
     }
+
 
     /**
      * Se formatean los parámetros de entrada y salida para la llamada del procedimiento.
@@ -216,5 +193,4 @@ class StoredProcedure
 
         return $formatedParams;
     }
-
 }

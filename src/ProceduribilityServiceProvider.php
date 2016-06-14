@@ -11,7 +11,13 @@ class ProceduribilityServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $configPath = __DIR__ . '/../config/procedure.php';
+
+        $this->publishes([
+            $configPath => config_path('procedure.php'),
+        ]);
+
+        $this->mergeConfigFrom($configPath, 'procedure');
     }
 
     /**
