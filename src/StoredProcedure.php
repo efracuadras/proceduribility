@@ -101,7 +101,7 @@ class StoredProcedure
      */
     public function run()
     {
-        $this->execute();
+        return $this->execute();
     }
 
     /**
