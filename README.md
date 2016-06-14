@@ -46,16 +46,18 @@ return $procedure->output('message'); // 'Post created'
 Instead of
 
 ```php
+$title = 'Super title';
+$body = 'Dummy text';
+
 $stmt = \DB::getPdo()->prepare("begin sp_create_post(
     :title,
     :body,
     :message,
-    :errors
-    ); end;"
+    :errors); end;"
 );
 
-$stmt->bindParam('title', $var1);
-$stmt->bindParam('body', $var2);
+$stmt->bindParam('title', $title);
+$stmt->bindParam('body', $body);
 $stmt->bindParam('message', $message, PDO::PARAM_STR, 3000);
 $stmt->bindParam('errors', $errors, PDO::PARAM_INT);
 $stmt->execute();
