@@ -41,22 +41,6 @@ class StoredProcedure
     protected $output = [];
 
     /**
-     * Retorna un parámetro de salida de la ejecución del procedimiento almacenado, en caso de no detallar el parámetro, retorna toda la salida.
-     * 
-     * @param  string $param
-     * 
-     * @return string
-     */
-    public function output($param = null)
-    {
-        if (is_null($param)) {
-            return $this->output;
-        }
-
-        return $this->output[$param];
-    }
-
-    /**
      * Seteo del nombre del procedimiento a llamar.
      * 
      * @param  string $procedureName
@@ -94,6 +78,22 @@ class StoredProcedure
         $this->paramsOut = $paramsOut;
 
         return $this;
+    }
+
+    /**
+     * Retorna un parámetro de salida de la ejecución del procedimiento almacenado, en caso de no detallar el parámetro, retorna toda la salida.
+     * 
+     * @param  string $param
+     * 
+     * @return string
+     */
+    public function output($param = null)
+    {
+        if (is_null($param)) {
+            return $this->output;
+        }
+
+        return $this->output[$param];
     }
 
     /**
@@ -155,9 +155,6 @@ class StoredProcedure
             switch ($value) {
                 case PDO::PARAM_STR:
                     $this->stmt->bindParam($param, ${$param}, PDO::PARAM_STR, config('procedure.params.str_length'));
-                    break;
-                case PDO::PARAM_INPUT_OUTPUT:
-                    $this->stmt->bindParam($param, ${$param}, PDO::PARAM_INPUT_OUTPUT, config('procedure.params.str_length'));
                     break;
                 default:
                     $this->stmt->bindParam($param, ${$param}, $value);
