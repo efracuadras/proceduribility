@@ -101,7 +101,7 @@ class StoredProcedure
      */
     public function run()
     {
-        return $this->execute();
+        $this->execute();
     }
 
     /**
@@ -110,8 +110,6 @@ class StoredProcedure
     public function execute()
     {
         $this->buildQuery();
-
-        return $this;
     }
 
     /**
