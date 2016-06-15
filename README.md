@@ -56,8 +56,10 @@ $stmt = \DB::getPdo()->prepare("begin sp_create_post(
     :errors); end;"
 );
 
+// Input parameters
 $stmt->bindParam('title', $title);
 $stmt->bindParam('body', $body);
+// Output parameters
 $stmt->bindParam('message', $message, PDO::PARAM_STR, 3000);
 $stmt->bindParam('errors', $errors, PDO::PARAM_INT);
 $stmt->execute();
