@@ -28,7 +28,7 @@ If you want to use the facade, add this to your facades in app.php:
 
 ## Usage
 
-Example:
+#### Example:
 
 ```php
 $procedure = Procedure::name('sp_create_post')
@@ -43,7 +43,7 @@ return $procedure->output(); // ['message' => 'Post created', 'errors' => 0]
 return $procedure->output('message'); // 'Post created'
 ```
 
-Instead of
+#### Instead of
 
 ```php
 $title = 'Super title';
