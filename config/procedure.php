@@ -12,7 +12,7 @@ return [
     /**
      * Se utilizará o no variables de salida por defecto.
      */
-    'default_output' => true,
+    'default_output' => false,
 
     /**
      * Variables de salida por defecto que se entregarán todos los procedimientos almacenados.
